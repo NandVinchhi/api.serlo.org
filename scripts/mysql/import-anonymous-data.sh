@@ -13,7 +13,7 @@ file_name=$(basename "$latest_dump")
 
 gsutil cp "$latest_dump" "$tmp_dir/$file_name"
 
-container=$(docker compose ps -q mysql | tr -d '\n')
+container=$(docker-compose ps -q mysql | tr -d '\n')
 
 if [ -z "$container" ]; then
   echo "❌ MySQL container not found. Please start the database first with 'yarn start'!"
@@ -25,7 +25,7 @@ docker cp "$tmp_dir/mysql.sql" "$container:/tmp/mysql.sql"
 docker cp "$tmp_dir/user.csv" "$container:/tmp/user.csv"
 
 echo "🟢 Start importing MySQL data"
-docker compose exec mysql sh -c 'pv "/tmp/mysql.sql" | serlo-mysql'
+docker-compose exec mysql sh -c 'pv "/tmp/mysql.sql" | serlo-mysql'
 
 echo "🟢 Start importing anonymized user data"
-docker compose exec mysql sh -c "serlo-mysql --local_infile=1 -e \"LOAD DATA LOCAL INFILE '/tmp/user.csv' INTO TABLE user FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n' IGNORE 1 ROWS;\""
+docker-compose exec mysql sh -c "serlo-mysql --local_infile=1 -e \"LOAD DATA LOCAL INFILE '/tmp/user.csv' INTO TABLE user FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n' IGNORE 1 ROWS;\""

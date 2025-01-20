@@ -93,3 +93,5 @@ dist/
 
 # GraphQL middleware backup
 /packages/server/src/internals/server/graphql-middleware.ts.bak
+/.yarn/cache
+/traces

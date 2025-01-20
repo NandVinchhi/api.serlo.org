@@ -2,7 +2,7 @@ echo '==> IMPORTANT: you should have successfully run yarn mysql:import-anonymou
 
 sleep 3
 
-postgres_exec='docker compose -f docker-compose.kratos.yml exec -T postgres psql --user=serlo kratos'
+postgres_exec='docker-compose -f docker-compose.kratos.yml exec -T postgres psql --user=serlo kratos'
 
 $postgres_exec -c "DROP SCHEMA public CASCADE;"
 $postgres_exec -c "CREATE SCHEMA public;"

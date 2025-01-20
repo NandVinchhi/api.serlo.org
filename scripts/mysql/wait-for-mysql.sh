@@ -27,7 +27,7 @@ current_timestamp() {
 }
 
 is_mysql_running() {
-  docker compose exec -T mysql serlo-mysql \
+  docker-compose exec -T mysql serlo-mysql \
     --execute="select id from uuid limit 1" > /dev/null 2>&1
 }
 

@@ -11,7 +11,7 @@ main() {
 }
 
 wait_for_mysql() {
-  if docker compose ps | grep -q "mysql"; then
+  if docker-compose ps | grep -q "mysql"; then
     "scripts/mysql/wait-for-mysql.sh"
   fi
 }
